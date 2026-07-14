@@ -51,7 +51,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: github.ref == 'refs/heads/main'
         with:
-          draft: true
+          draft: false
           prerelease: false
           tag_name: "v1.0.${{ github.run_number }}"
           files: |
