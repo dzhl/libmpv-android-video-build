@@ -1,0 +1,50 @@
+#!/bin/bash -e
+
+## Dependency versions
+
+v_sdk=9123335_latest
+v_ndk=25.2.9519653
+v_sdk_build_tools=33.0.2
+
+v_libass=0.17.1
+v_harfbuzz=7.2.0
+v_fribidi=1.0.12
+v_freetype=2-13-0
+v_openssl=3.3.1
+v_dav1d=1.2.0
+v_libxml2=2.10.3
+v_ffmpeg=6.0
+v_mpv=78d43740f52db817d98bcf24fb30a76ab6fa13ff
+v_libogg=1.3.5
+v_libvorbis=1.3.7
+v_libvpx=1.13
+v_libplacebo=6.338.2
+v_libbluray=1.3.4
+v_libiconv=1.17
+
+## Dependency tree
+# I would've used a dict but putting arrays in a dict is not a thing
+
+dep_openssl=()
+dep_dav1d=()
+dep_libvorbis=(libogg)
+if [ -n "${ENCODERS_GPL+x}" ]; then
+	dep_ffmpeg=(openssl dav1d libxml2 libvorbis libvpx libx264 libiconv)
+else
+	dep_ffmpeg=(openssl dav1d libxml2 libiconv)
+fi
+dep_freetype2=()
+dep_fribidi=()
+dep_harfbuzz=()
+dep_libass=(freetype fribidi harfbuzz)
+dep_lua=()
+dep_shaderc=()
+dep_libiconv=()
+dep_libbluray=(freetype libxml2)
+dep_libplacebo=(shaderc)
+
+if [ -n "${ENCODERS_GPL+x}" ]; then
+	dep_mpv=(ffmpeg libass fftools_ffi libplacebo libbluray libiconv)
+else
+	dep_mpv=(ffmpeg libass libplacebo libbluray libiconv)
+fi
