@@ -38,6 +38,7 @@ jobs:
         working-directory: ./buildscripts
         run: |
           sudo chmod +x bundle_full.sh
+          find . -name "*.sh" -exec sudo chmod +x {} \;
           ./bundle_full.sh
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
